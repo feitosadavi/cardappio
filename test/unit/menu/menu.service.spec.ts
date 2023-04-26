@@ -1,10 +1,11 @@
 import { faker } from '@faker-js/faker';
 import { Test, TestingModule } from '@nestjs/testing';
-import { CreateMenuDto, ItemDto } from './dto/create-menu.dto';
-import { UpdateMenuDto } from './dto/update-menu.dto';
-import { Menu } from './entities/menu.entity';
-import { MenuService } from './menu.service';
-import { MenuRepository } from './repository/mongodb/menu.repository';
+
+import { CreateMenuDto, ItemDto } from '@/modules/menu/dto/create-menu.dto';
+import { Menu } from '@/modules/menu/entities/menu.entity';
+import { MenuService } from '@/modules/menu/menu.service';
+import { MenuRepository } from '@/modules/menu/repository/mongodb/menu.repository';
+import { UpdateMenuDto } from '@/modules/menu/dto/update-menu.dto';
 
 const fakeItemsDto: ItemDto[] = [{
 	name: 'caipirinha',

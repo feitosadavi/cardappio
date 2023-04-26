@@ -1,10 +1,10 @@
 import { Test } from '@nestjs/testing';
-import { MenuController } from './menu.controller';
-import { MenuService } from './menu.service';
-import { CreateMenuDto, ItemDto } from './dto/create-menu.dto';
-import { UpdateMenuDto } from './dto/update-menu.dto';
+import { MenuController } from '@/modules/menu/menu.controller';
+import { MenuService } from '@/modules/menu/menu.service';
+import { CreateMenuDto, ItemDto } from '@/modules/menu/dto/create-menu.dto';
+import { UpdateMenuDto } from '@/modules/menu/dto/update-menu.dto';
 import { faker } from '@faker-js/faker';
-import { Menu } from './entities/menu.entity';
+import { Menu } from '@/modules/menu/entities/menu.entity';
 
 describe('MenuController', () => {
 	let sut: MenuController;

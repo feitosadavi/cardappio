@@ -5,10 +5,6 @@ import { CreateMenuDto, ItemDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
 import { faker } from '@faker-js/faker';
 import { Menu } from './entities/menu.entity';
-import { MenuRepository } from './repository/mongodb/menu.repository';
-import { MongooseModule } from '@nestjs/mongoose';
-import { MenuSchema } from './repository/mongodb/menu.model';
-import { rootMongooseTestModule } from 'src/shared/test-utils/mongoose-test-module';
 
 describe('MenuController', () => {
 	let sut: MenuController;
@@ -45,17 +41,21 @@ describe('MenuController', () => {
 		...fakeCreateMenuDto
 	}];
 
+	const mockMenuService = {
+		create: jest.fn().mockImplementation(() => Promise.resolve()),
+		findAll: jest.fn().mockImplementation(() => Promise.resolve(fakeMenus)),
+		findOne: jest.fn().mockImplementation(() => Promise.resolve(fakeMenus[0])),
+		update: jest.fn().mockImplementation((input) => ({ ...fakeCreateMenuDto, ...input })),
+		remove: jest.fn().mockImplementation(() => Promise.resolve()),
+	};
+
 	beforeEach(async () => {
 		const moduleRef = await Test.createTestingModule({
 			controllers: [MenuController],
-			providers: [
-				MenuService,
-				MenuRepository
-			],
-			imports: [
-				rootMongooseTestModule(),
-				MongooseModule.forFeature([{ name: 'Menu', schema: MenuSchema }])
-			]
+			providers: [{
+				provide: MenuService,
+				useValue: mockMenuService
+			}]
 		}).compile();
 
 		menuService = moduleRef.get<MenuService>(MenuService);

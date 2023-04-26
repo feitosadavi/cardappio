@@ -1,5 +1,5 @@
 import { Schema } from 'mongoose';
-import { Item, Menu } from 'src/menu/entities/menu.entity';
+import { Item, Menu } from '@/modules/menu/entities/menu.entity';
 
 export const ItemSchema = new Schema<Item>({
 	name: { type: String, required: true },

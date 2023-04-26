@@ -2,11 +2,11 @@ import { getModelToken, MongooseModule } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Model } from 'mongoose';
 import { MenuRepository } from './menu.repository';
-import { Menu } from 'src/menu/entities/menu.entity';
-import { rootMongooseTestModule } from 'src/shared/test-utils/mongoose-test-module';
+import { Menu } from '@/modules/menu/entities/menu.entity';
+import { rootMongooseTestModule } from '@/shared/test-utils/mongoose-test-module';
 import { MenuSchema } from './menu.model';
 import { faker } from '@faker-js/faker';
-import { CreateMenuDto, ItemDto } from 'src/menu/dto/create-menu.dto';
+import { CreateMenuDto, ItemDto } from '@/modules/menu/dto/create-menu.dto';
 
 describe('MenuRepository', () => {
 	let menuRepository: MenuRepository;

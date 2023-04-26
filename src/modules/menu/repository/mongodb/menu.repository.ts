@@ -1,8 +1,8 @@
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { CreateMenuDto } from 'src/menu/dto/create-menu.dto';
+import { CreateMenuDto } from '@/modules/menu/dto/create-menu.dto';
 import { IMenuRepository } from './interface';
-import { Menu } from 'src/menu/entities/menu.entity';
+import { Menu } from '@/modules/menu/entities/menu.entity';
 
 export class MenuRepository implements IMenuRepository {
 	constructor(

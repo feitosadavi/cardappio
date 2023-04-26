@@ -1,4 +1,4 @@
-import { CreateMenuDto } from 'src/menu/dto/create-menu.dto';
+import { CreateMenuDto } from '@/modules/menu/dto/create-menu.dto';
 
 export abstract class IGenericRepository<T> {
 	abstract findAll (): Promise<T[]>;

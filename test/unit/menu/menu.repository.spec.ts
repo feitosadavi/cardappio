@@ -1,38 +1,16 @@
 import { getModelToken, MongooseModule } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Model } from 'mongoose';
-import { faker } from '@faker-js/faker';
 
 import { rootMongooseTestModule } from '@/shared/test-utils/mongoose-test-module';
 import { MenuRepository } from '@/modules/menu/repository/mongodb/menu.repository';
 import { Menu } from '@/modules/menu/entities/menu.entity';
 import { MenuSchema } from '@/modules/menu/repository/mongodb/menu.model';
-import { CreateMenuDto, ItemDto } from '@/modules/menu/dto/create-menu.dto';
+import { fakeCreateMenuDto } from '@test/mocks/menu.mocks';
 
 describe('MenuRepository', () => {
 	let menuRepository: MenuRepository;
 	let menuModel: Model<Menu>;
-
-	const fakeItemsDto: ItemDto[] = [{
-		name: 'caipirinha',
-		photos: [faker.image.food()],
-		desc: faker.lorem.sentence(),
-		price: faker.datatype.number(),
-		status: faker.datatype.boolean()
-	}, {
-		name: 'martini',
-		photos: [faker.image.food()],
-		desc: faker.lorem.sentence(),
-		price: faker.datatype.number(),
-		status: faker.datatype.boolean()
-	}];
-
-	const fakeCreateMenuDto: CreateMenuDto = {
-		name: 'drinks',
-		restaurantId: faker.datatype.uuid(),
-		status: true,
-		items: [fakeItemsDto[0]]
-	};
 
 	beforeEach(async () => {
 		const module: TestingModule = await Test.createTestingModule({
@@ -49,13 +27,13 @@ describe('MenuRepository', () => {
 		menuModel = module.get<Model<Menu>>(getModelToken('Menu'));
 	});
 
-	// describe('findAll', () => {
-	// 	it('should return an array of menus', async () => {
-	// 		await menuModel.create(fakeCreateMenuDto);
-	// 		const menus = await menuRepository.findAll();
-	// 		expect(menus[0]._id).toBeTruthy();
-	// 	});
-	// });
+	describe('findAll', () => {
+		it('should return an array of menus', async () => {
+			await menuModel.create(fakeCreateMenuDto);
+			const menus = await menuRepository.findAll();
+			expect(menus[0]._id).toBeTruthy();
+		});
+	});
 
 	describe('findOne', () => {
 		it('should return an array of menus', async () => {

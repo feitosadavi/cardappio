@@ -1,38 +1,10 @@
 import { faker } from '@faker-js/faker';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { CreateMenuDto, ItemDto } from '@/modules/menu/dto/create-menu.dto';
-import { Menu } from '@/modules/menu/entities/menu.entity';
 import { MenuService } from '@/modules/menu/menu.service';
 import { MenuRepository } from '@/modules/menu/repository/mongodb/menu.repository';
 import { UpdateMenuDto } from '@/modules/menu/dto/update-menu.dto';
-
-const fakeItemsDto: ItemDto[] = [{
-	name: 'caipirinha',
-	photos: [faker.image.food()],
-	desc: faker.lorem.sentence(),
-	price: faker.datatype.number(),
-	status: faker.datatype.boolean()
-}, {
-	name: 'martini',
-	photos: [faker.image.food()],
-	desc: faker.lorem.sentence(),
-	price: faker.datatype.number(),
-	status: faker.datatype.boolean()
-}];
-
-const fakeCreateMenuDto: CreateMenuDto = {
-	name: 'drinks',
-	restaurantId: faker.datatype.uuid(),
-	status: true,
-	items: [fakeItemsDto[0]]
-};
-
-const fakeMenus: Menu[] = [{
-	_id: faker.datatype.uuid(),
-	status: true,
-	...fakeCreateMenuDto
-}];
+import { fakeCreateMenuDto, fakeMenus } from '@test/mocks/menu.mocks';
 
 describe('MenuService', () => {
 	let sut: MenuService;

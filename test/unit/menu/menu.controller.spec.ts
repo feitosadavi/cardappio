@@ -1,45 +1,13 @@
 import { Test } from '@nestjs/testing';
 import { MenuController } from '@/modules/menu/menu.controller';
 import { MenuService } from '@/modules/menu/menu.service';
-import { CreateMenuDto, ItemDto } from '@/modules/menu/dto/create-menu.dto';
 import { UpdateMenuDto } from '@/modules/menu/dto/update-menu.dto';
 import { faker } from '@faker-js/faker';
-import { Menu } from '@/modules/menu/entities/menu.entity';
+import { fakeCreateMenuDto, fakeMenus } from '@test/mocks/menu.mocks';
 
 describe('MenuController', () => {
 	let sut: MenuController;
 	let menuService: MenuService;
-
-	const fakeItemsDto: ItemDto[] = [{
-		name: 'caipirinha',
-		photos: [faker.image.food()],
-		desc: faker.lorem.sentence(),
-		price: faker.datatype.number(),
-		status: faker.datatype.boolean()
-	}, {
-		name: 'martini',
-		photos: [faker.image.food()],
-		desc: faker.lorem.sentence(),
-		price: faker.datatype.number(),
-		status: faker.datatype.boolean()
-	}];
-
-	const fakeCreateMenuDto: CreateMenuDto = {
-		name: 'drinks',
-		restaurantId: faker.datatype.uuid(),
-		status: true,
-		items: [fakeItemsDto[0]]
-	};
-
-	const fakeUpdateMenuDto: UpdateMenuDto = {
-		name: 'hotdog'
-	};
-
-	const fakeMenus: Menu[] = [{
-		_id: faker.datatype.uuid(),
-		status: true,
-		...fakeCreateMenuDto
-	}];
 
 	const mockMenuService = {
 		create: jest.fn().mockImplementation(() => Promise.resolve()),
@@ -101,6 +69,9 @@ describe('MenuController', () => {
 	describe('update', () => {
 		it('should call service update with correct input', async () => {
 			const menuId = faker.datatype.uuid();
+			const fakeUpdateMenuDto: UpdateMenuDto = {
+				name: 'another name'
+			};
 			const spy = jest.spyOn(menuService, 'update');
 			await sut.update(menuId, fakeUpdateMenuDto);
 			expect(spy).toHaveBeenCalledWith(menuId, fakeUpdateMenuDto);
